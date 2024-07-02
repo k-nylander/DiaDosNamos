@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Elapsed Since March 19, 2022</title>
+    <style>
+        body {
+            color: rgb(110, 28, 28);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url(wallpaper.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #timer {
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        p {
+            margin: 5px 0;
+            font-size: 1.5em;
+        }
+        audio {
+            display: none;
+        }
+        .conteiner {
+            background-color: antiquewhite;
+            border: 5px double rgb(110, 28, 28);
+            border-radius: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" autoplay loop></audio>
+
+    <div id="timer" class="conteiner">
+        <h1>"A medida do amor é amar sem medida."</h1>
+        <h3>Ja estamos juntinhos há <span id="years"></span> anos, <span id="months"></span> meses, <span id="days"></span> dias, <span id="hours"></span> horas, <span id="minutes"></span> minutos e <span id="seconds"></span> segundos...</h3>
+        <h5>Desde então, nunca houve e nem nunca vai haver um dia(ou segundo) sequer em que eu não vou te amar sem medida ❤️ <br>
+            Você sempre vai ser a minha princesa 👑</h5>
+    </div>
+
+    <script>
+        // Array of music files in the 'musicas' folder
+        const musicFiles = [
+            'musicas/1.mp3',
+            'musicas/2.mp3',
+            // Add more music files as needed
+        ];
+
+        // Randomly select a music file from the array
+        function getRandomMusic() {
+            const randomIndex = Math.floor(Math.random() * musicFiles.length);
+            return musicFiles[randomIndex];
+        }
+
+        const audioElement = document.getElementById('background-music');
+        audioElement.src = getRandomMusic();
+        audioElement.load(); // Load the new source
+        audioElement.play(); // Play the audio
+
+        function updateTime() {
+            const startDate = new Date('March 19, 2022 18:30:00');
+            const now = new Date();
+            const elapsed = now - startDate;
+
+            const seconds = Math.floor(elapsed / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const weeks = Math.floor(days / 7);
+            const months = Math.floor(days / 30.44); // Approximation
+            const years = Math.floor(days / 365.25); // Approximation
+
+            document.getElementById('years').textContent = `${years}`;
+            document.getElementById('months').textContent = `${months%12}`;
+            document.getElementById('days').textContent = `${((days%30) - (Math.floor(months/2)))}`;
+            document.getElementById('hours').textContent = `${hours%24}`;
+            document.getElementById('minutes').textContent = `${minutes%60}`;
+            document.getElementById('seconds').textContent = `${seconds%60}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime(); // Initial call to display the timer immediately
+    </script>
+</body>
+</html>
